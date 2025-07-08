@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\LikesController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PostsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +31,13 @@ Route::prefix('v1')->group(function () {
     Route::prefix('like')->group(function () {
         Route::post('/', [LikesController::class, 'store']);
         Route::delete('{id}', [LikesController::class, 'destroy']);
+    });
+
+    // handle messages
+    Route::prefix('message')->group(function () {
+        Route::post('/', [MessagesController::class, 'store']);
+        Route::get('{id}', [MessagesController::class, 'getMessage']);
+        Route::get('/getMessages/{user_id}', [MessagesController::class, 'getAllMessages']);
+        Route::delete('{id}', [MessagesController::class, 'destroy']);
     });
 });
